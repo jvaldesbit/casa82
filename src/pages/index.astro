@@ -172,7 +172,7 @@ const canonica = new URL('/', Astro.site).href;
               <strong>2</strong><span>Pisos, sala–comedor amplio</span>
             </div>
             <div class="datos__item datos__item--lime">
-              <strong>6→12</strong><span>Meses de contrato, renovable</span>
+              <strong>12</strong><span>Meses de contrato, renovable cada año</span>
             </div>
             <div class="datos__item">
               <strong>$0</strong><span>Costo del estudio de arriendo</span>
@@ -356,8 +356,8 @@ const canonica = new URL('/', Astro.site).href;
                 <span class="paso__num">PASO 03</span>
                 <h3>Firmamos en notaría</h3>
                 <p>
-                  Contrato de 6 meses renovable a 12, autenticado, más pagaré en blanco por
-                  posibles daños.
+                  Contrato a 12 meses autenticado en notaría, renovable cada año, más
+                  pagaré en blanco por posibles daños.
                 </p>
               </div>
             </div>
@@ -484,14 +484,6 @@ const canonica = new URL('/', Astro.site).href;
                   <input id="fecha_ingreso" name="fecha_ingreso" type="date" required />
                 </div>
                 <div class="campo">
-                  <label for="duracion">Duración que buscas</label>
-                  <select id="duracion" name="duracion">
-                    <option>6 meses, renovable a 12</option>
-                    <option>12 meses</option>
-                    <option>3 meses</option>
-                  </select>
-                </div>
-                <div class="campo">
                   <label for="acompanantes">¿Solo o con alguien más? *</label>
                   <select id="acompanantes" name="acompanantes" required>
                     <option value="">Elige una opción</option>
@@ -611,7 +603,11 @@ const canonica = new URL('/', Astro.site).href;
                   },
                   {
                     q: '¿Cómo es el contrato?',
-                    a: 'Inicial de 6 meses renovable a 12, autenticado en notaría, con pagaré en blanco que cubre posibles daños del inmueble.',
+                    a: 'A 12 meses, autenticado en notaría y renovable cada año. Lleva un pagaré en blanco que cubre posibles daños del inmueble.',
+                  },
+                  {
+                    q: '¿Con cuánto tiempo aviso si me voy?',
+                    a: 'Con un mes de anticipación antes de dejar la casa, para poder moverla a tiempo.',
                   },
                   {
                     q: '¿Puedo tomarla con otra persona?',
@@ -729,7 +725,6 @@ const canonica = new URL('/', Astro.site).href;
         ['ingresos', 'Ingresos al mes'],
         ['otros_ingresos', 'Otros ingresos'],
         ['fecha_ingreso', 'La tomaría desde'],
-        ['duracion', 'Duración'],
         ['acompanantes', 'Viviría'],
         ['personas', 'Personas en total'],
         ['acompanante_datos', 'Quien me acompaña'],
