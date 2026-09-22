@@ -1,0 +1,8 @@
+# Para probar el contenedor en local: docker compose up --build
+# Luego http://localhost:8082
+services:
+  casa82:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "8082:8080"

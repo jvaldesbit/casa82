@@ -1,0 +1,16 @@
+{
+  "name": "casa82",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Sitio de arriendo de la casa en Portal del Porvenir III — casa82.kiware.co",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "astro": "^5.15.11"
+  }
+}

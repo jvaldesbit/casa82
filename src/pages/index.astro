@@ -1,0 +1,745 @@
+---
+import '../styles/global.css';
+import { fotos } from '../data/fotos.js';
+
+const CANON = 900000;
+const WHATSAPP = '573137303141';
+const WHATSAPP_VISIBLE = '313 730 3141';
+const MAPA = 'https://maps.app.goo.gl/uWoPRAtjddiztSHj9';
+
+const titulo = 'CASA 82';
+const descripcion =
+  'Casa de 2 habitaciones en el conjunto Portal del Porvenir III, Bosa El Porvenir. $900.000 al mes con administración incluida. Sin codeudor: el estudio lo hace Sura y no cuesta nada.';
+
+// URL absoluta: WhatsApp descarta un og:image relativo y el enlace sale sin
+// miniatura. `Astro.site` viene de astro.config.mjs.
+const og = new URL('/og.jpg', Astro.site).href;
+const canonica = new URL('/', Astro.site).href;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titulo}</title>
+    <meta name="description" content={descripcion} />
+    <link rel="canonical" href={canonica} />
+    <meta name="theme-color" content="#000000" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <!-- Miniatura al compartir por WhatsApp: la foto de la cocina, 1200x630. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="casa82.kiware.co" />
+    <meta property="og:locale" content="es_CO" />
+    <meta property="og:url" content={canonica} />
+    <meta property="og:title" content="CASA 82" />
+    <meta property="og:description" content={descripcion} />
+    <meta property="og:image" content={og} />
+    <meta property="og:image:secure_url" content={og} />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Cocina integral de la casa, con mesón en granito" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="CASA 82" />
+    <meta name="twitter:description" content={descripcion} />
+    <meta name="twitter:image" content={og} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400..600&display=swap"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="/fotos/hero-alto.webp"
+      media="(max-width: 699px)"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="/fotos/hero-ancho.webp"
+      media="(min-width: 700px)"
+      fetchpriority="high"
+    />
+  </head>
+
+  <body>
+    <a href="#formulario" class="solo-lectores">Ir al formulario</a>
+
+    <header class="header">
+      <div class="envoltura header__fila">
+        <a href="#top" class="marca">CASA 82</a>
+        <nav class="header__nav" aria-label="Secciones">
+          <a href="#fotos">Fotos</a>
+          <a href="#casa">La casa</a>
+          <a href="#requisitos">Requisitos</a>
+          <a href="#preguntas">Preguntas</a>
+        </nav>
+        <a
+          class="header__wa"
+          href={`https://wa.me/${WHATSAPP}`}
+          target="_blank"
+          rel="noopener"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20.5l1.7-5.2A8.5 8.5 0 1 1 21 11.5Z"></path></svg>
+          {WHATSAPP_VISIBLE}
+        </a>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- HERO -->
+      <section class="hero">
+        {/* Dos recortes de la misma foto: vertical en el celular, apaisado en
+            escritorio. Con una sola versión, en pantallas anchas el `cover`
+            recortaba una franja tan estrecha que solo se veían los azulejos. */}
+        <picture class="hero__marco">
+          <source media="(min-width: 700px)" srcset="/fotos/hero-ancho.webp" />
+          <img
+            class="hero__foto"
+            src="/fotos/hero-alto.webp"
+            alt="Cocina integral de la casa, con mesón en granito y barra"
+            width="1200"
+            height="1600"
+            fetchpriority="high"
+          />
+        </picture>
+        <div class="hero__velo"></div>
+        <div class="envoltura hero__contenido">
+          <p class="hero__lugar">
+            <span class="hero__punto"></span>
+            <span class="mono">Bosa · El Porvenir · Bogotá</span>
+          </p>
+          <h1>CASA 82</h1>
+          <p class="hero__subtitulo">Casa de 2 habitaciones en Portal del Porvenir III</p>
+          <p class="hero__bajada">
+            Conjunto cerrado con portería. Cocina integral, sala–comedor, zona de ropas
+            y baño con división en vidrio. Lista para entrar a vivir.
+          </p>
+
+          <div class="hero__pie">
+            <div class="precio">
+              <span class="mono">Canon mensual</span>
+              <span class="precio__cifra"><strong>$900.000</strong><span>/ mes</span></span>
+              <span class="precio__nota">Administración incluida</span>
+              <div class="hero__acciones" style="margin-top: 14px;">
+                <a class="btn btn--blanco" href="#formulario">
+                  Aplicar en 3 minutos
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12 5l7 7-7 7"></path></svg>
+                </a>
+                <a class="btn btn--linea" href={MAPA} target="_blank" rel="noopener">Ver el mapa</a>
+              </div>
+            </div>
+
+            <div class="hero__sura">
+              <span class="etiqueta-verde">Estudio con Sura</span>
+              <strong>Sin codeudor y sin cobro por el estudio.</strong>
+              <p>Arrendamiento Digital de Sura: el estudio es virtual y gratis.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TIRA DE DATOS -->
+      <section class="datos">
+        <div class="envoltura" style="padding-inline: 0;">
+          <div class="datos__rejilla">
+            <div class="datos__item">
+              <strong>2</strong><span>Habitaciones con ventana</span>
+            </div>
+            <div class="datos__item">
+              <strong>1</strong><span>Baño con división en vidrio</span>
+            </div>
+            <div class="datos__item">
+              <strong>2</strong><span>Pisos, sala–comedor amplio</span>
+            </div>
+            <div class="datos__item datos__item--lime">
+              <strong>6→12</strong><span>Meses de contrato, renovable</span>
+            </div>
+            <div class="datos__item">
+              <strong>$0</strong><span>Costo del estudio de arriendo</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOTOS -->
+      <section id="fotos" class="seccion">
+        <div class="envoltura">
+          <div class="cabecera">
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <span class="eyebrow">01 — Fotos</span>
+              <h2 class="titulo">Así está hoy la casa</h2>
+            </div>
+            <p class="cabecera__nota">
+              {fotos.length} fotos reales, tomadas esta semana. Toca cualquiera para verla grande.
+            </p>
+          </div>
+
+          <div class="galeria">
+            {
+              fotos.map((foto, i) => (
+                <button
+                  type="button"
+                  class="galeria__item"
+                  data-foto={i}
+                  aria-label={`Ampliar foto: ${foto.pie}`}
+                >
+                  <img
+                    src={foto.src}
+                    alt={`${foto.zona}: ${foto.pie}`}
+                    loading={i < 3 ? 'eager' : 'lazy'}
+                    decoding="async"
+                    width="1200"
+                    height="1600"
+                  />
+                  <figcaption>{foto.pie}</figcaption>
+                </button>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <!-- LA CASA -->
+      <section id="casa" class="seccion" style="padding-top: 0;">
+        <div class="envoltura">
+          <div class="casa">
+            <div style="display: flex; flex-direction: column; gap: 24px;">
+              <span class="eyebrow">02 — La casa</span>
+              <h2 class="titulo">Qué incluye el arriendo</h2>
+              <p style="font-size: 1.05rem; line-height: 1.6; color: var(--texto-2);">
+                Los $900.000 ya traen la administración del conjunto. No hay cuota aparte
+                ni cobros sorpresa a mitad de mes.
+              </p>
+              <ul class="lista-check">
+                {
+                  [
+                    'Administración del conjunto incluida',
+                    'Cocina integral con mesón en granito y barra',
+                    'Baño con división en vidrio y ducha eléctrica',
+                    'Zona de ropas independiente con lavadero',
+                    'Piso en cerámica en toda la casa',
+                    'Conjunto cerrado con portería y zonas comunes',
+                  ].map((item) => (
+                    <li>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c5ff41" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>
+                      <span>{item}</span>
+                    </li>
+                  ))
+                }
+              </ul>
+
+              <div class="tarjeta-nota">
+                <span class="tarjeta-nota__titulo">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff8c" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 4l9 6.5V20H3v-9.5Z"></path><path d="M9.5 20v-6h5v6"></path></svg>
+                  Parqueadero
+                </span>
+                <p>
+                  El conjunto asigna los parqueaderos por sorteo cada tres meses, así que
+                  no viene fijo con la casa.
+                </p>
+              </div>
+            </div>
+
+            <div class="casa__fotos">
+              <img src="/fotos/cocina-03.webp" alt="Cocina completa vista desde la sala" loading="lazy" decoding="async" width="1200" height="1600" />
+              <img src="/fotos/habitacion-03.webp" alt="Habitación con ventana amplia" loading="lazy" decoding="async" width="1200" height="1600" />
+              <img src="/fotos/bano-01.webp" alt="Baño con ducha y división en vidrio" loading="lazy" decoding="async" width="1200" height="1600" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- REQUISITOS -->
+      <section id="requisitos" class="seccion" style="padding-top: 0;">
+        <div class="envoltura">
+          <div class="panel">
+            <div class="panel__cabecera">
+              <div style="display: flex; flex-direction: column; gap: 16px;">
+                <span class="eyebrow">03 — Requisitos</span>
+                <h2 class="titulo">El estudio lo hace Sura, es virtual y no cuesta nada</h2>
+                <p>
+                  Trabajamos con <strong>Arrendamiento Digital de Sura</strong>: la
+                  aseguradora corre el estudio financiero y de comportamiento de pago y no
+                  cobra un peso por hacerlo, ni a ti ni a mí. Yo solo te pido la
+                  certificación laboral y los desprendibles para revisar antes de radicar
+                  que el canon te quede cómodo.
+                </p>
+              </div>
+              <p class="gratis"><strong>$0</strong><span>Costo del estudio</span></p>
+            </div>
+
+            <div class="pasos">
+              <div class="paso">
+                <span class="paso__num">PASO 01</span>
+                <h3>Llenas el formulario</h3>
+                <p>Acá abajo, en esta misma página. Son unos 3 minutos.</p>
+              </div>
+              <div class="paso">
+                <span class="paso__num">PASO 02</span>
+                <h3>Radico el estudio en Sura</h3>
+                <p>Con tu nombre y tu correo. Sura te escribe directo para confirmar los datos.</p>
+              </div>
+              <div class="paso">
+                <span class="paso__num">PASO 03</span>
+                <h3>Firmamos en notaría</h3>
+                <p>
+                  Contrato de 6 meses renovable a 12, autenticado, más pagaré en blanco por
+                  posibles daños.
+                </p>
+              </div>
+            </div>
+
+            <div class="caja-requisito">
+              <h3>Lo que necesito de ti</h3>
+              <ul class="lista-dos">
+                <li class="punto-lime">Certificación laboral con el salario</li>
+                <li class="punto-lime">Los 3 últimos desprendibles de nómina</li>
+                <li class="punto-lime">Los 3 últimos extractos bancarios</li>
+                <li class="punto-lime">Cédula por ambas caras</li>
+              </ul>
+              <p style="font-size: 0.9rem; line-height: 1.5; color: var(--texto-3);">
+                Los mandas por el mismo chat de WhatsApp, en foto o PDF. No necesitas
+                codeudor con finca raíz ni pasar por ninguna oficina.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- FORMULARIO -->
+      <section id="formulario" class="seccion" style="padding-top: 0;">
+        <div class="envoltura">
+          <div class="cabecera">
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <span class="eyebrow">04 — Aplicar</span>
+              <h2 class="titulo">Cuéntame de ti y radico el estudio</h2>
+              <p style="font-size: 1.02rem; line-height: 1.6; color: var(--texto-2); max-width: 56ch;">
+                Al darle enviar se abre WhatsApp con todos tus datos ya escritos. Solo le
+                das enviar en el chat.
+              </p>
+            </div>
+          </div>
+
+          <form class="form" id="form-solicitud" novalidate>
+            <div class="grupo">
+              <div class="grupo__titulo">
+                <span class="grupo__num" aria-hidden="true">1</span>
+                <h3>Tus datos</h3>
+              </div>
+              <div class="campos">
+                <div class="campo">
+                  <label for="nombre">Nombre completo *</label>
+                  <input id="nombre" name="nombre" type="text" autocomplete="name" required placeholder="Como aparece en la cédula" />
+                </div>
+                <div class="campo">
+                  <label for="cedula">Cédula *</label>
+                  <input id="cedula" name="cedula" type="text" inputmode="numeric" required placeholder="1.024.567.890" />
+                </div>
+                <div class="campo">
+                  <label for="telefono">Celular / WhatsApp *</label>
+                  <input id="telefono" name="telefono" type="tel" inputmode="tel" autocomplete="tel" required placeholder="313 000 0000" />
+                </div>
+                <div class="campo">
+                  <label for="correo">Correo electrónico *</label>
+                  <input id="correo" name="correo" type="email" autocomplete="email" required placeholder="tucorreo@gmail.com" />
+                </div>
+                <div class="campo">
+                  <label for="nacimiento">Fecha de nacimiento</label>
+                  <input id="nacimiento" name="nacimiento" type="date" />
+                </div>
+                <div class="campo">
+                  <label for="ciudad">Ciudad donde vives hoy</label>
+                  <input id="ciudad" name="ciudad" type="text" placeholder="Bogotá" />
+                </div>
+              </div>
+            </div>
+
+            <div class="grupo">
+              <div class="grupo__titulo">
+                <span class="grupo__num" aria-hidden="true">2</span>
+                <h3>Trabajo e ingresos</h3>
+              </div>
+              <div class="campos">
+                <div class="campo">
+                  <label for="ocupacion">¿A qué te dedicas? *</label>
+                  <select id="ocupacion" name="ocupacion" required>
+                    <option value="">Elige una opción</option>
+                    <option>Empleado</option>
+                    <option>Independiente</option>
+                    <option>Pensionado</option>
+                    <option>Estudiante</option>
+                  </select>
+                </div>
+                <div class="campo">
+                  <label for="empresa">Empresa o actividad *</label>
+                  <input id="empresa" name="empresa" type="text" required placeholder="Dónde trabajas o en qué" />
+                </div>
+                <div class="campo">
+                  <label for="cargo">Cargo</label>
+                  <input id="cargo" name="cargo" type="text" placeholder="Analista, vendedor, …" />
+                </div>
+                <div class="campo">
+                  <label for="antiguedad">Antigüedad</label>
+                  <select id="antiguedad" name="antiguedad">
+                    <option value="">Sin especificar</option>
+                    <option>Menos de 6 meses</option>
+                    <option>6 a 12 meses</option>
+                    <option>1 a 3 años</option>
+                    <option>Más de 3 años</option>
+                  </select>
+                </div>
+                <div class="campo">
+                  <label for="ingresos">Ingresos mensuales *</label>
+                  <input id="ingresos" name="ingresos" type="text" inputmode="numeric" required placeholder="$ 2.800.000" />
+                </div>
+                <div class="campo">
+                  <label for="otros_ingresos">Otros ingresos al mes</label>
+                  <input id="otros_ingresos" name="otros_ingresos" type="text" inputmode="numeric" placeholder="$ 0" />
+                </div>
+              </div>
+            </div>
+
+            <div class="grupo">
+              <div class="grupo__titulo">
+                <span class="grupo__num" aria-hidden="true">3</span>
+                <h3>Cómo tomarías la casa</h3>
+              </div>
+              <div class="campos">
+                <div class="campo">
+                  <label for="fecha_ingreso">¿Para qué fecha la tomas? *</label>
+                  <input id="fecha_ingreso" name="fecha_ingreso" type="date" required />
+                </div>
+                <div class="campo">
+                  <label for="duracion">Duración que buscas</label>
+                  <select id="duracion" name="duracion">
+                    <option>6 meses, renovable a 12</option>
+                    <option>12 meses</option>
+                    <option>3 meses</option>
+                  </select>
+                </div>
+                <div class="campo">
+                  <label for="acompanantes">¿Solo o con alguien más? *</label>
+                  <select id="acompanantes" name="acompanantes" required>
+                    <option value="">Elige una opción</option>
+                    <option>Solo yo</option>
+                    <option>Con mi pareja</option>
+                    <option>Con mi familia</option>
+                    <option>Con compañeros</option>
+                  </select>
+                </div>
+                <div class="campo">
+                  <label for="personas">¿Cuántas personas en total?</label>
+                  <input id="personas" name="personas" type="number" min="1" max="12" placeholder="2" />
+                </div>
+                <div class="campo">
+                  <label for="acompanante_datos">Nombre y cédula de quien te acompaña</label>
+                  <input id="acompanante_datos" name="acompanante_datos" type="text" placeholder="Si aplica" />
+                </div>
+                <div class="campo">
+                  <label for="mascotas">¿Mascotas? ¿Cuántas y cuáles?</label>
+                  <input id="mascotas" name="mascotas" type="text" placeholder="Ej: 1 perro pequeño · ninguna" />
+                </div>
+                <div class="campo campo--ancho">
+                  <label for="notas">Algo más que deba saber</label>
+                  <textarea id="notas" name="notas" rows="3" placeholder="Opcional"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="grupo">
+              <div class="grupo__titulo">
+                <span class="grupo__num" aria-hidden="true">4</span>
+                <h3>Documentos</h3>
+              </div>
+              <p class="form__nota" style="margin-top: -4px;">
+                Para el estudio necesito la <strong style="color: #fff; font-weight: 600;">certificación laboral con salario</strong>,
+                los <strong style="color: #fff; font-weight: 600;">3 últimos desprendibles de nómina</strong> y la cédula por
+                ambas caras. Los adjuntas en el mismo chat de WhatsApp que se abre al enviar.
+              </p>
+              <div class="acepto">
+                <input id="documentos" name="documentos" type="checkbox" />
+                <label for="documentos">
+                  Ya tengo listos la certificación laboral, los desprendibles y la cédula
+                  para adjuntarlos en el chat.
+                </label>
+              </div>
+              <div class="acepto">
+                <input id="autorizacion" name="autorizacion" type="checkbox" required />
+                <label for="autorizacion">
+                  Autorizo el tratamiento de mis datos y que Sura consulte mi comportamiento
+                  de pago para el estudio de arrendamiento. *
+                </label>
+              </div>
+              <div class="form__enviar">
+                <button class="btn btn--lime" type="submit">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20.5l1.7-5.2A8.5 8.5 0 1 1 21 11.5Z"></path></svg>
+                  Enviar por WhatsApp
+                </button>
+                <p class="form__nota">
+                  Se abre el chat con el mensaje listo. Te respondo el mismo día.
+                </p>
+              </div>
+              <p class="form__nota" id="form-error" role="alert" hidden style="color: #ff8f7a;">
+                Faltan campos por llenar. Revisa los que están marcados con *.
+              </p>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- PREGUNTAS -->
+      <section id="preguntas" class="seccion" style="padding-top: 0;">
+        <div class="envoltura">
+          <div class="preguntas-rejilla">
+            <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px;">
+              <span class="eyebrow">05 — Preguntas</span>
+              <h2 class="titulo">Lo que siempre preguntan</h2>
+              <p class="cabecera__nota" style="text-align: left;">
+                Si falta algo, escríbeme por WhatsApp y lo agrego acá.
+              </p>
+            </div>
+
+            <div class="preguntas">
+              {
+                [
+                  {
+                    q: '¿Cuánto pago en total al mes?',
+                    a: '$900.000 y ahí va incluida la administración del conjunto. No hay cuota aparte.',
+                    abierta: true,
+                  },
+                  {
+                    q: '¿Necesito codeudor?',
+                    a: 'No. El estudio se hace con Arrendamiento Digital de Sura, que no pide codeudor con finca raíz.',
+                  },
+                  {
+                    q: '¿Cuánto cuesta el estudio?',
+                    a: 'Nada. Sura no cobra el estudio financiero ni el de comportamiento de pago, ni a ti ni a mí.',
+                  },
+                  {
+                    q: '¿Qué documentos tengo que mandar?',
+                    a: 'Certificación laboral con el salario, los 3 últimos desprendibles de nómina y la cédula por ambas caras. Los adjuntas en el mismo chat de WhatsApp. No pido extractos bancarios ni codeudor.',
+                  },
+                  {
+                    q: '¿Hay parqueadero?',
+                    a: 'El conjunto los asigna por sorteo cada tres meses, así que no queda asignado a la casa de forma fija.',
+                  },
+                  {
+                    q: '¿Se aceptan mascotas?',
+                    a: 'Cuéntame en el formulario cuántas son y de qué tipo, y lo revisamos caso a caso.',
+                  },
+                  {
+                    q: '¿Cuánto es el depósito?',
+                    a: 'El 50% del canon ($450.000), que se devuelve al terminar el contrato.',
+                  },
+                  {
+                    q: '¿Cómo es el contrato?',
+                    a: 'Inicial de 6 meses renovable a 12, autenticado en notaría, con pagaré en blanco que cubre posibles daños del inmueble.',
+                  },
+                  {
+                    q: '¿Puedo tomarla con otra persona?',
+                    a: 'Sí. Indícalo en el formulario con el nombre y la cédula de quien vivirá contigo.',
+                  },
+                  {
+                    q: '¿Dónde queda exactamente?',
+                    a: 'En el conjunto Portal del Porvenir III, Bosa El Porvenir, Bogotá. El botón "Ver el mapa" abre la ubicación en Google Maps.',
+                  },
+                ].map((item) => (
+                  <details class="pregunta" open={item.abierta}>
+                    <summary>{item.q}</summary>
+                    <p>{item.a}</p>
+                  </details>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CIERRE -->
+      <section class="seccion" style="padding-top: 0;">
+        <div class="envoltura">
+          <div class="cierre">
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <h2>¿La quieres ver en persona?</h2>
+              <p>Agenda la visita por WhatsApp. Coordinamos el mismo día.</p>
+            </div>
+            <a class="btn" href={`https://wa.me/${WHATSAPP}`} target="_blank" rel="noopener">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#c5ff41" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20.5l1.7-5.2A8.5 8.5 0 1 1 21 11.5Z"></path></svg>
+              Escribir al {WHATSAPP_VISIBLE}
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="envoltura pie">
+        <div class="pie__marca">
+          <span>casa82.kiware.co</span>
+          <span>Portal del Porvenir III · Bosa El Porvenir, Bogotá</span>
+        </div>
+        <div class="pie__enlaces">
+          <a href={MAPA} target="_blank" rel="noopener">Mapa</a>
+          <a href={`https://wa.me/${WHATSAPP}`} target="_blank" rel="noopener">WhatsApp</a>
+          <span class="pie__firma">hecho en kiware</span>
+        </div>
+      </div>
+    </footer>
+
+    <a
+      class="flotante"
+      href={`https://wa.me/${WHATSAPP}`}
+      target="_blank"
+      rel="noopener"
+      aria-label={`Escribir por WhatsApp al ${WHATSAPP_VISIBLE}`}
+    >
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20.5l1.7-5.2A8.5 8.5 0 1 1 21 11.5Z"></path></svg>
+      WhatsApp
+    </a>
+
+    <!-- Visor de fotos -->
+    <dialog class="visor" id="visor" aria-label="Foto ampliada">
+      <div class="visor__caja">
+        <button type="button" class="icono-btn visor__cerrar" id="visor-cerrar" aria-label="Cerrar la foto">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+        </button>
+        <!-- Sin `src`: un src vacío hace que el navegador vuelva a pedir la
+             página. Lo pone el script al abrir el visor. -->
+        <img class="visor__foto" id="visor-foto" alt="" />
+        <div class="visor__barra">
+          <span class="visor__pie" id="visor-pie"></span>
+          <div class="visor__nav">
+            <button type="button" class="icono-btn" id="visor-antes" aria-label="Foto anterior">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+            </button>
+            <button type="button" class="icono-btn" id="visor-siguiente" aria-label="Foto siguiente">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
+    <script is:inline define:vars={{ WHATSAPP, fotos, CANON }}>
+      // --- Formulario: arma el mensaje y abre WhatsApp ---------------------
+      const form = document.getElementById('form-solicitud');
+      const aviso = document.getElementById('form-error');
+
+      // Etiquetas del mensaje, en el orden en que quiero leerlo en el chat.
+      const ETIQUETAS = [
+        ['nombre', 'Nombre'],
+        ['cedula', 'Cédula'],
+        ['telefono', 'Celular'],
+        ['correo', 'Correo'],
+        ['nacimiento', 'Nacimiento'],
+        ['ciudad', 'Ciudad'],
+        ['ocupacion', 'Ocupación'],
+        ['empresa', 'Empresa o actividad'],
+        ['cargo', 'Cargo'],
+        ['antiguedad', 'Antigüedad'],
+        ['ingresos', 'Ingresos al mes'],
+        ['otros_ingresos', 'Otros ingresos'],
+        ['fecha_ingreso', 'La tomaría desde'],
+        ['duracion', 'Duración'],
+        ['acompanantes', 'Viviría'],
+        ['personas', 'Personas en total'],
+        ['acompanante_datos', 'Quien me acompaña'],
+        ['mascotas', 'Mascotas'],
+        ['notas', 'Notas'],
+      ];
+
+      form.addEventListener('submit', (evento) => {
+        evento.preventDefault();
+
+        if (!form.checkValidity()) {
+          aviso.hidden = false;
+          form.reportValidity();
+          const primerFallo = form.querySelector(':invalid');
+          if (primerFallo) primerFallo.focus();
+          return;
+        }
+        aviso.hidden = true;
+
+        const datos = new FormData(form);
+        const lineas = ['Hola, vi casa82.kiware.co y me interesa la casa.', ''];
+
+        for (const [campo, etiqueta] of ETIQUETAS) {
+          const valor = (datos.get(campo) || '').toString().trim();
+          if (valor) lineas.push(`*${etiqueta}:* ${valor}`);
+        }
+
+        // Cuántas veces el canon cubren los ingresos. Va en el mensaje para no
+        // tener que sacar la cuenta a mano en cada solicitud.
+        const aNumero = (campo) =>
+          Number(((datos.get(campo) || '').toString().match(/\d/g) || []).join('')) || 0;
+        const ingresoTotal = aNumero('ingresos') + aNumero('otros_ingresos');
+
+        if (ingresoTotal > 0) {
+          const veces = ingresoTotal / CANON;
+          const juicio = veces >= 4 ? 'holgado' : veces >= 2 ? 'alcanza' : 'queda corto';
+          lineas.push(
+            `*Ingreso / canon:* ${veces.toFixed(1).replace('.', ',')}x el canon de $${CANON.toLocaleString('es-CO')} — ${juicio}`
+          );
+        }
+
+        lineas.push(
+          '',
+          datos.get('documentos')
+            ? 'Adjunto en este chat la certificación laboral, los 3 desprendibles y la cédula.'
+            : 'Quedo pendiente de enviar la certificación laboral, los 3 desprendibles y la cédula.',
+          'Autorizo el estudio de arrendamiento con Sura.'
+        );
+
+        const url = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(lineas.join('\n'))}`;
+        // En móvil `window.open` puede quedar bloqueado; si pasa, navegamos.
+        const ventana = window.open(url, '_blank');
+        if (!ventana) window.location.href = url;
+      });
+
+      // --- Visor de fotos ---------------------------------------------------
+      const visor = document.getElementById('visor');
+      const visorFoto = document.getElementById('visor-foto');
+      const visorPie = document.getElementById('visor-pie');
+      let actual = 0;
+
+      function mostrar(indice) {
+        actual = (indice + fotos.length) % fotos.length;
+        const foto = fotos[actual];
+        visorFoto.src = foto.src;
+        visorFoto.alt = `${foto.zona}: ${foto.pie}`;
+        visorPie.textContent = `${foto.pie} · ${actual + 1} de ${fotos.length}`;
+      }
+
+      document.querySelectorAll('[data-foto]').forEach((boton) => {
+        boton.addEventListener('click', () => {
+          mostrar(Number(boton.dataset.foto));
+          visor.showModal();
+        });
+      });
+
+      document.getElementById('visor-cerrar').addEventListener('click', () => visor.close());
+      document.getElementById('visor-antes').addEventListener('click', () => mostrar(actual - 1));
+      document.getElementById('visor-siguiente').addEventListener('click', () => mostrar(actual + 1));
+
+      visor.addEventListener('click', (evento) => {
+        // Clic en el fondo (no en la foto ni en los botones) cierra.
+        if (evento.target === visor || evento.target.classList.contains('visor__caja')) {
+          visor.close();
+        }
+      });
+
+      visor.addEventListener('keydown', (evento) => {
+        if (evento.key === 'ArrowLeft') mostrar(actual - 1);
+        if (evento.key === 'ArrowRight') mostrar(actual + 1);
+      });
+    </script>
+  </body>
+</html>

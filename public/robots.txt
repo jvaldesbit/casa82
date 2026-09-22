@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://casa82.kiware.co/sitemap.xml

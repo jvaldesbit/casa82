@@ -1,0 +1,8 @@
+# Compose para Dokploy.
+#
+# Sin `ports`: Traefik llega al contenedor por la red interna. En la UI de
+# Dokploy hay que apuntar el dominio casa82.kiware.co al puerto 8080.
+services:
+  casa82:
+    build: .
+    restart: unless-stopped
