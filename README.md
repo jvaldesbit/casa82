@@ -22,17 +22,29 @@ npm run build      # genera dist/
 npm run preview    # sirve dist/ para revisar el build
 ```
 
-## Despliegue en Dokploy
+## Despliegue
 
-1. Aplicación tipo **Compose**, apuntando a este repo con
-   `docker-compose.dokploy.yml`.
-2. Dominio `casa82.kiware.co` → servicio `casa82`, **puerto 8080**.
-3. Certificado Let's Encrypt desde la UI. No hace falta ninguna variable de
-   entorno.
+Va en **GitHub Pages**. Cada push a `main` dispara
+`.github/workflows/pages.yml`, que corre `astro build` y publica `dist/`.
 
-Sin `ports` en el compose: Traefik llega al contenedor por la red interna.
+El dominio propio sale de `public/CNAME`, que Astro copia tal cual al build.
+Si ese archivo desaparece, GitHub borra el dominio propio en el siguiente
+despliegue.
 
-Para probar el contenedor en local:
+En Cloudflare, `casa82.kiware.co` es un **CNAME a `jvaldesbit.github.io`**.
+Tiene que estar en **DNS only** (nube gris) para que GitHub pueda emitir el
+certificado. Una vez emitido se puede activar el proxy, pero entonces el modo
+SSL de la zona debe ser **Full**, no Flexible: con Flexible se produce un bucle
+de redirecciones porque GitHub fuerza HTTPS.
+
+### Alternativa: contenedor en Dokploy
+
+El `Dockerfile`, el `nginx.conf` y `docker-compose.dokploy.yml` siguen en el
+repo por si algún día conviene servirlo desde maia en vez de Pages. En ese caso
+es una aplicación tipo Compose con el dominio apuntando al **puerto 8080**, y
+hay que quitar el `CNAME` de `public/`.
+
+Para probar ese contenedor en local:
 
 ```sh
 docker compose up --build   # http://localhost:8082

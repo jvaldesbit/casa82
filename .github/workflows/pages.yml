@@ -1,0 +1,45 @@
+# Publica el sitio en GitHub Pages en cada push a main.
+#
+# El dominio propio (casa82.kiware.co) sale de public/CNAME, que Astro copia
+# tal cual a dist/. Si ese archivo desaparece, GitHub borra el dominio propio
+# de la configuración de Pages en el siguiente despliegue.
+
+name: Publicar en GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Los permisos que pide deploy-pages: `pages` para publicar e `id-token` para
+# el OIDC con el que se autentica.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Un despliegue a la vez, y si llega otro push mientras corre, gana el nuevo.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  construir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      # La acción oficial de Astro: instala node, corre `astro build` y sube
+      # dist/ como artefacto de Pages.
+      - uses: withastro/action@v4
+        with:
+          node-version: 22
+
+  publicar:
+    needs: construir
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.despliegue.outputs.page_url }}
+    steps:
+      - id: despliegue
+        uses: actions/deploy-pages@v4
