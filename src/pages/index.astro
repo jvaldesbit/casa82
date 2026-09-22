@@ -464,11 +464,11 @@ const canonica = new URL('/', Astro.site).href;
                 </div>
                 <div class="campo">
                   <label for="ingresos">Ingresos mensuales *</label>
-                  <input id="ingresos" name="ingresos" type="text" inputmode="numeric" required placeholder="$ 2.800.000" />
+                  <input id="ingresos" name="ingresos" type="text" inputmode="numeric" required placeholder="$ 2.800.000" data-pesos />
                 </div>
                 <div class="campo">
                   <label for="otros_ingresos">Otros ingresos al mes</label>
-                  <input id="otros_ingresos" name="otros_ingresos" type="text" inputmode="numeric" placeholder="$ 0" />
+                  <input id="otros_ingresos" name="otros_ingresos" type="text" inputmode="numeric" placeholder="$ 0" data-pesos />
                 </div>
               </div>
             </div>
@@ -497,14 +497,86 @@ const canonica = new URL('/', Astro.site).href;
                   <label for="personas">¿Cuántas personas en total?</label>
                   <input id="personas" name="personas" type="number" min="1" max="12" placeholder="2" />
                 </div>
-                <div class="campo">
-                  <label for="acompanante_datos">Nombre y cédula de quien te acompaña</label>
-                  <input id="acompanante_datos" name="acompanante_datos" type="text" placeholder="Si aplica" />
+
+                <div class="campo campo--ancho subbloque" id="bloque-acompanante" hidden>
+                  <span class="subbloque__titulo">Quién viviría contigo</span>
+                  <div class="campos">
+                    <div class="campo">
+                      <label for="acomp_nombre">Nombre completo *</label>
+                      <input id="acomp_nombre" name="acomp_nombre" type="text" placeholder="Nombre y apellidos" data-requerido />
+                    </div>
+                    <div class="campo">
+                      <label for="acomp_cedula">Cédula *</label>
+                      <input id="acomp_cedula" name="acomp_cedula" type="text" inputmode="numeric" placeholder="79.456.123" data-requerido />
+                    </div>
+                    <div class="campo">
+                      <label for="acomp_parentesco">¿Qué es tuyo?</label>
+                      <select id="acomp_parentesco" name="acomp_parentesco">
+                        <option value="">Elige una opción</option>
+                        <option>Mi pareja</option>
+                        <option>Mi hijo o hija</option>
+                        <option>Mi mamá o papá</option>
+                        <option>Otro familiar</option>
+                        <option>Un amigo o compañero</option>
+                      </select>
+                    </div>
+                  </div>
+                  <p class="form__nota">
+                    Si son más de dos personas, cuéntame el resto en el último campo.
+                  </p>
                 </div>
-                <div class="campo">
-                  <label for="mascotas">¿Mascotas? ¿Cuántas y cuáles?</label>
-                  <input id="mascotas" name="mascotas" type="text" placeholder="Ej: 1 perro pequeño · ninguna" />
+
+                <div class="campo campo--ancho">
+                  <label for="mascotas-no">¿Tienes mascotas?</label>
+                  <div class="pildoras">
+                    <label class="pildora">
+                      <input type="radio" id="mascotas-no" name="tiene_mascotas" value="No" checked />
+                      <span>No</span>
+                    </label>
+                    <label class="pildora">
+                      <input type="radio" id="mascotas-si" name="tiene_mascotas" value="Sí" />
+                      <span>Sí</span>
+                    </label>
+                  </div>
                 </div>
+
+                <div class="campo campo--ancho subbloque" id="bloque-mascotas" hidden>
+                  <span class="subbloque__titulo">Cuéntame de tu mascota</span>
+                  <div class="campos">
+                    <div class="campo">
+                      <label for="mascotas_cuantas">¿Cuántas? *</label>
+                      <input id="mascotas_cuantas" name="mascotas_cuantas" type="number" min="1" max="6" placeholder="1" data-requerido />
+                    </div>
+                    <div class="campo">
+                      <label for="mascotas_tipo">¿Qué son? *</label>
+                      <select id="mascotas_tipo" name="mascotas_tipo" data-requerido>
+                        <option value="">Elige una opción</option>
+                        <option>Perro</option>
+                        <option>Gato</option>
+                        <option>Perro y gato</option>
+                        <option>Otra mascota</option>
+                      </select>
+                    </div>
+                    <div class="campo">
+                      <label for="mascotas_tamano">¿De qué tamaño? *</label>
+                      <select id="mascotas_tamano" name="mascotas_tamano" data-requerido>
+                        <option value="">Elige una opción</option>
+                        <option>Pequeño, hasta 10 kg</option>
+                        <option>Mediano, de 10 a 25 kg</option>
+                        <option>Grande, más de 25 kg</option>
+                      </select>
+                    </div>
+                    <div class="campo campo--ancho">
+                      <label for="mascotas_raza">¿De qué raza?</label>
+                      <input id="mascotas_raza" name="mascotas_raza" type="text" placeholder="Ej: criollo, labrador, siamés" />
+                    </div>
+                  </div>
+                  <p class="form__nota">
+                    Mándame una foto de la mascota en el chat de WhatsApp que se abre al
+                    enviar. Con eso la reviso de una.
+                  </p>
+                </div>
+
                 <div class="campo campo--ancho">
                   <label for="notas">Algo más que deba saber</label>
                   <textarea id="notas" name="notas" rows="3" placeholder="Opcional"></textarea>
@@ -710,6 +782,46 @@ const canonica = new URL('/', Astro.site).href;
       const form = document.getElementById('form-solicitud');
       const aviso = document.getElementById('form-error');
 
+      // Los campos de dinero se formatean mientras se escribe: solo hay que
+      // teclear los dígitos y salen los puntos de mil. `aNumero` más abajo
+      // vuelve a quitarlos, así que el cálculo no se entera.
+      document.querySelectorAll('[data-pesos]').forEach((campo) => {
+        campo.addEventListener('input', () => {
+          const digitos = campo.value.replace(/\D/g, '').slice(0, 12);
+          campo.value = digitos ? `$ ${Number(digitos).toLocaleString('es-CO')}` : '';
+        });
+      });
+
+      // Un bloque que aparece según la respuesta anterior. Al esconderlo hay
+      // que quitarle el `required` (si no, la validación falla en un campo que
+      // nadie ve) y vaciarlo, para que no viaje en el mensaje lo que alguien
+      // escribió y después cambió de opinión.
+      function alternarBloque(bloque, mostrar) {
+        bloque.hidden = !mostrar;
+        bloque.querySelectorAll('[data-requerido]').forEach((campo) => {
+          campo.required = mostrar;
+        });
+        if (!mostrar) {
+          bloque.querySelectorAll('input, select, textarea').forEach((campo) => {
+            campo.value = '';
+          });
+        }
+      }
+
+      const selAcompanantes = form.querySelector('[name="acompanantes"]');
+      const bloqueAcompanante = document.getElementById('bloque-acompanante');
+      selAcompanantes.addEventListener('change', () => {
+        const valor = selAcompanantes.value;
+        alternarBloque(bloqueAcompanante, valor !== '' && valor !== 'Solo yo');
+      });
+
+      const bloqueMascotas = document.getElementById('bloque-mascotas');
+      form.querySelectorAll('[name="tiene_mascotas"]').forEach((opcion) => {
+        opcion.addEventListener('change', () => {
+          alternarBloque(bloqueMascotas, opcion.checked && opcion.value === 'Sí');
+        });
+      });
+
       // Etiquetas del mensaje, en el orden en que quiero leerlo en el chat.
       const ETIQUETAS = [
         ['nombre', 'Nombre'],
@@ -727,8 +839,14 @@ const canonica = new URL('/', Astro.site).href;
         ['fecha_ingreso', 'La tomaría desde'],
         ['acompanantes', 'Viviría'],
         ['personas', 'Personas en total'],
-        ['acompanante_datos', 'Quien me acompaña'],
-        ['mascotas', 'Mascotas'],
+        ['acomp_nombre', 'Quien vive conmigo'],
+        ['acomp_cedula', 'Su cédula'],
+        ['acomp_parentesco', 'Es'],
+        ['tiene_mascotas', 'Mascotas'],
+        ['mascotas_cuantas', 'Cuántas'],
+        ['mascotas_tipo', 'Qué son'],
+        ['mascotas_tamano', 'Tamaño'],
+        ['mascotas_raza', 'Raza'],
         ['notas', 'Notas'],
       ];
 
@@ -764,6 +882,10 @@ const canonica = new URL('/', Astro.site).href;
           lineas.push(
             `*Ingreso / canon:* ${veces.toFixed(1).replace('.', ',')}x el canon de $${CANON.toLocaleString('es-CO')} — ${juicio}`
           );
+        }
+
+        if (datos.get('tiene_mascotas') === 'Sí') {
+          lineas.push('', 'Enseguida te mando la foto de la mascota.');
         }
 
         lineas.push(
