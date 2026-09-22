@@ -98,6 +98,7 @@ solo se veían los azulejos del salpicadero.
 | Dato | Dónde |
 |---|---|
 | Canon y el cálculo ingreso/canon | `CANON` en `src/pages/index.astro` |
+| Horarios de visita | `VISITAS` en `src/pages/index.astro` — alimenta el selector, el mensaje de WhatsApp, el cierre y las preguntas frecuentes |
 | Número de WhatsApp | `WHATSAPP` y `WHATSAPP_VISIBLE` en `src/pages/index.astro` |
 | Enlace del mapa | `MAPA` en `src/pages/index.astro` |
 | Preguntas frecuentes | el arreglo de la sección `#preguntas` |

@@ -789,6 +789,120 @@ a:hover {
   margin-right: 8px;
 }
 
+/* ---------- selector de visitas ---------- */
+
+.horarios {
+  margin: 0 0 24px;
+  padding: 0;
+  border: 0;
+  display: grid;
+  gap: 12px;
+}
+
+/* Cada tarjeta es un `<label>`, así que hay que deshacer la regla global de
+   label (mono, mayúsculas, gris, margen inferior) antes de darle la suya. */
+.horario {
+  margin: 0;
+  font-family: var(--sans);
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--texto);
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 20px;
+  background: var(--superficie-alta);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  cursor: pointer;
+  transition: border-color 0.2s var(--suave), background-color 0.2s var(--suave);
+}
+
+.horario:hover {
+  border-color: var(--linea-fuerte);
+}
+
+/* El radio real queda fuera de vista pero sigue recibiendo el foco y el
+   teclado; la tarjeta entera es la etiqueta. */
+.horario input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.horario:has(input:checked) {
+  border-color: var(--lime);
+  background: rgba(197, 255, 65, 0.07);
+}
+
+.horario:has(input:focus-visible) {
+  outline: 2px solid var(--lime);
+  outline-offset: 3px;
+}
+
+.horario__marca {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  flex: none;
+  margin-top: 3px;
+  border: 1.5px solid var(--linea-fuerte);
+  border-radius: 999px;
+}
+
+.horario:has(input:checked) .horario__marca {
+  border-color: var(--lime);
+}
+
+.horario:has(input:checked) .horario__marca::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 999px;
+  background: var(--lime);
+}
+
+.horario__texto {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.horario__texto strong {
+  font-family: var(--sans);
+  font-size: 1.12rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--texto);
+}
+
+.horario__fecha {
+  font-size: 0.92rem;
+  color: var(--texto-3);
+}
+
+.horario__hora {
+  margin-top: 6px;
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  color: var(--lime);
+}
+
+.visita__fila {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.visita__fila .btn {
+  width: 100%;
+}
+
 /* ---------- formulario ---------- */
 
 .form {
@@ -1156,6 +1270,20 @@ select {
   }
 
   .form__enviar .btn {
+    width: auto;
+  }
+
+  .horarios {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .visita__fila {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 20px;
+  }
+
+  .visita__fila .btn {
     width: auto;
   }
 
